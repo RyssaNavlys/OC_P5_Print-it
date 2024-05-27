@@ -81,6 +81,16 @@ function increaseSliderKey(slide,currentKey) {
 	}
 }
 
+// update slider content
+function updateSliderContent(container,slides,slideKey) {
+	// slide IMG
+	const slideImg = container.getElementsByClassName("banner-img")[0];
+	// slide text (<p>)
+	const slideTxt = container.querySelector("p");
+	// update content
+	slideImg.src = "./assets/images/slideshow/" + slides[slideKey].image;
+	slideTxt.innerHTML = slides[slideKey].tagLine;
+}
 
 
 
@@ -101,6 +111,7 @@ sliderLeftArrow.addEventListener("click", (event) => {
 	// Decrease slider Key
 	currentKey = decreaseSliderKey(slides,currentKey);
 	// Update slide
+	updateSliderContent(bannerSliderContainer,slides,currentKey);
 	// update dot
 	selectDot(bannerSliderContainer,currentKey);
 });
@@ -111,6 +122,7 @@ sliderRightArrow.addEventListener("click", (event) => {
 	// Increase slider Key
 	currentKey = increaseSliderKey(slides,currentKey);
 	// Update slide
+	updateSliderContent(bannerSliderContainer,slides,currentKey);
 	// update dot
 	selectDot(bannerSliderContainer,currentKey);
 });
