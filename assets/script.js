@@ -21,7 +21,7 @@ const slides = [
 // Add dot
 function addDot(container) {
 	// Create new div
-	let newDot = document.createElement("div");
+	const newDot = document.createElement("div");
 	// Adding class
 	newDot.classList.add('dot');
 	// Adding new div in the container
@@ -30,11 +30,11 @@ function addDot(container) {
 // Select dot
 function selectDot(container, dotKey) {
 	// Getting dots container
-	let dotsContainer = container.getElementsByClassName("dots")[0];
+	const dotsContainer = container.getElementsByClassName("dots")[0];
 	// Getting dots content
-	let dotsList = dotsContainer.getElementsByClassName("dot");
+	const dotsList = dotsContainer.getElementsByClassName("dot");
 	// Getting selected dots
-	let selectedDotsList = dotsContainer.getElementsByClassName("dot_selected");
+	const selectedDotsList = dotsContainer.getElementsByClassName("dot_selected");
 	// unselect every selected dots : loop to prevent multiple selected dots bug
 	for(let i=0; i<selectedDotsList.length; i++) {
 		if(selectedDotsList[i] !== dotsList[dotKey]) {
@@ -105,7 +105,7 @@ initSliderDot(bannerSliderContainer,slides, currentKey);
 const sliderLeftArrow = document.getElementById('sliderLeftArrow');
 const sliderRightArrow = document.getElementById('sliderRightArrow');
 
-sliderLeftArrow.addEventListener("click", (event) => {
+sliderLeftArrow.addEventListener("click", () => {
 	// Debug : detect event
 	console.log('click detected on left arrow');
 	// Decrease slider Key
@@ -116,7 +116,7 @@ sliderLeftArrow.addEventListener("click", (event) => {
 	selectDot(bannerSliderContainer,currentKey);
 });
 
-sliderRightArrow.addEventListener("click", (event) => {
+sliderRightArrow.addEventListener("click", () => {
 	// Debug : detect event
 	console.log('click detected on right arrow');
 	// Increase slider Key
