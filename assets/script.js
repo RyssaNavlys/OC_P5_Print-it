@@ -1,3 +1,4 @@
+// Sliders content
 const slides = [
 	{
 		"image":"slide1.jpg",
@@ -15,4 +16,25 @@ const slides = [
 		"image":"slide4.png",
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
-]
+];
+
+
+// Sliders events listener
+const sliderLeftArrow = document.getElementById('sliderLeftArrow');
+const sliderRightArrow = document.getElementById('sliderRightArrow');
+
+sliderLeftArrow.addEventListener("click", (event) => {
+	// Debug : detect event
+	console.log('click detected on left arrow');
+	// Get current slide
+	// Current slide - 1
+	// Update slide
+});
+
+sliderRightArrow.addEventListener("click", (event) => {
+	// Debug : detect event
+	console.log('click detected on right arrow');
+	// Get current slide
+	// Current slide + 1
+	// Update slide
+});
