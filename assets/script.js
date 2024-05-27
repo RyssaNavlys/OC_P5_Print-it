@@ -28,7 +28,7 @@ function addDot(container) {
 	container.getElementsByClassName("dots")[0].appendChild(newDot);
 }
 // Select dot
-function selectDot(container, dotNumber) {
+function selectDot(container, dotKey) {
 	// Getting dots container
 	let dotsContainer = container.getElementsByClassName("dots")[0];
 	// Getting dots content
@@ -37,31 +37,58 @@ function selectDot(container, dotNumber) {
 	let selectedDotsList = dotsContainer.getElementsByClassName("dot_selected");
 	// unselect every selected dots : loop to prevent multiple selected dots bug
 	for(let i=0; i<selectedDotsList.length; i++) {
-		if(selectedDotsList[i] !== dotsList[dotNumber]) {
+		if(selectedDotsList[i] !== dotsList[dotKey]) {
 			selectedDotsList[i].classList.remove("dot_selected");
 		}
 	}
 	// select dot
-	console.log("selectedDot number " + dotNumber);
-	dotsList[dotNumber-1].classList.add("dot_selected");
+	console.log("selectedDot number " + dotKey);
+	dotsList[dotKey].classList.add("dot_selected");
 }
 // Init sliders dots
-function initSliderDot(container, slides, selectedDot = 1) {
+function initSliderDot(container, slides, selectedDotKey = 0) {
 	// Prevent selectDot out of range
-	if(selectedDot < 0 || selectedDot > slides.length) {
-		selectedDot = 1;
+	if(selectedDotKey < 0 || selectedDotKey > slides.length-1) {
+		selectedDotKey = 1;
 	}
 	// Adding dots
 	for(let i = 0; i < slides.length; i++) {
-		console.log("add dot number " + (i + 1));
+		console.log("add dot with key " + i);
 		addDot(container);
 	}
 	// Select dot
-	selectDot(container, selectedDot);
+	selectDot(container, selectedDotKey);
 }
 
+// decrease slider
+function decreaseSliderKey(slide,currentKey) {
+	// if decreased Key is in range
+	if(currentKey-1 >= 0 && currentKey-1 < (slide.length - 1)) {
+		return currentKey-1;
+	// if decreasedKey is out of range, select last Slider item
+	} else {
+		return slide.length - 1;
+	}
+}
+// increase slider
+function increaseSliderKey(slide,currentKey) {
+	// if increased Key is in range
+	if(currentKey + 1 >= 0 && currentKey + 1 <= (slide.length - 1)) {
+		return currentKey + 1;
+	// if decreasedKey is out of range, select first Slider item
+	} else {
+		return 0;
+	}
+}
+
+
+
+
+
 // Init Banner Slider Dot
-initSliderDot(document.getElementById("banner"),slides);
+const bannerSliderContainer = document.getElementById("banner");
+let currentKey = 0;
+initSliderDot(bannerSliderContainer,slides, currentKey);
 
 
 // Sliders events listener
@@ -71,17 +98,19 @@ const sliderRightArrow = document.getElementById('sliderRightArrow');
 sliderLeftArrow.addEventListener("click", (event) => {
 	// Debug : detect event
 	console.log('click detected on left arrow');
-	// Get current slide
-	// Current slide - 1
+	// Decrease slider Key
+	currentKey = decreaseSliderKey(slides,currentKey);
 	// Update slide
 	// update dot
+	selectDot(bannerSliderContainer,currentKey);
 });
 
 sliderRightArrow.addEventListener("click", (event) => {
 	// Debug : detect event
 	console.log('click detected on right arrow');
-	// Get current slide
-	// Current slide + 1
+	// Increase slider Key
+	currentKey = increaseSliderKey(slides,currentKey);
 	// Update slide
 	// update dot
+	selectDot(bannerSliderContainer,currentKey);
 });
